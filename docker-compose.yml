@@ -7,5 +7,15 @@ services:
     build:
       context: .
       dockerfile: ./docker/api/Dockerfile
-    ports:
-      - 3001:3001
+    hostname: speedcal
+    networks:
+      - speedcal
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token 
+    networks:
+      - speedcal
+
+networks:
+  speedcal:
